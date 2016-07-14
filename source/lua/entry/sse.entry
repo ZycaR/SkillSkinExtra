@@ -1,0 +1,5 @@
+modEntry = {
+	Shared = "lua/sse_Shared.lua",
+	FileHooks = "lua/sse_Filehook.lua",
+	Priority = 3
+}

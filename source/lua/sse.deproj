@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <file>
+    <filename>sse_FileHook.lua</filename>
+  </file>
+  <file>
+    <filename>sse_Player.lua</filename>
+  </file>
+  <file>
+    <filename>sse_Shared.lua</filename>
+  </file>
+  <file>
+    <filename>sse_SkillSkinConfig.lua</filename>
+  </file>
+  <file>
+    <filename>sse_SkillSkinWonitor.lua</filename>
+  </file>
+  <file>
+    <filename>sse_SkillSkinsMixin.lua</filename>
+  </file>
+</project>
