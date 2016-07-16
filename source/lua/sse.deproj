@@ -10,6 +10,9 @@
     <filename>sse_Shared.lua</filename>
   </file>
   <file>
+    <filename>sse_SkillSkinCommands.lua</filename>
+  </file>
+  <file>
     <filename>sse_SkillSkinConfig.lua</filename>
   </file>
   <file>

@@ -3,14 +3,19 @@
 //	ZycaR (c) 2016
 //
 
-Script.Load("lua/sse_SkillSkinWonitor.lua")
+if Server then
+    Script.Load("lua/sse_SkillSkinWonitor.lua")
+    Script.Load("lua/sse_SkillSkinCommands.lua")
+end
 
 SkillSkinsMixin = CreateMixin( SkillSkinsMixin )
 SkillSkinsMixin.type = "SkillSkins"
 
-SkillSkinsMixin.kShaderName = "shaders/SkillSkins.surface_shader"
+SkillSkinsMixin.kShaderNameMarine = "shaders/SkillSkins_marine.surface_shader"
+SkillSkinsMixin.kShaderNameAlien = "shaders/SkillSkins_alien.surface_shader"
 SkillSkinsMixin.kMaskList = {
-    "models/marine/male/male_body_sseMap.dds"
+    "models/marine/male/male_body_sseMap.dds",
+    "models/alien/skulk/skulk_sseMap.dds"
 }
 
 SkillSkinsMixin.networkVars =
@@ -40,7 +45,8 @@ if Client then
     for _, mask in ipairs(SkillSkinsMixin.kMaskList) do
         PrecacheAsset(mask)
     end
-    Shared.PrecacheSurfaceShader(SkillSkinsMixin.kShaderName)
+    Shared.PrecacheSurfaceShader(SkillSkinsMixin.kShaderNameMarine)
+    Shared.PrecacheSurfaceShader(SkillSkinsMixin.kShaderNameAlien)
 
     function SkillSkinsMixin:OnUpdateRender()
         local model = self:GetRenderModel()
@@ -58,56 +64,3 @@ if Client then
     
 end // Client
 
-if Server then
-
-    // Send playtime request to wonitor
-    local function OnClientConnect(client)
-        if client and not client:GetIsVirtual() then
-            RequestWonitorForClient(client)
-        end    
-    end
-    Event.Hook("ClientConnect", OnClientConnect)
-
-    local function OnCommandSetChannel(client, channel)
-        if Shared.GetCheatsEnabled() then
-
-            local skillSkinChannel = Clamp( tonumber(channel), 0.0, 3.0 )
-            Print("SkillSkinsExtra Channel = " .. tostring( skillSkinChannel ) )
-            
-            for _, player in ipairs(GetEntitiesWithMixin("SkillSkins")) do
-                player.sseChannel = channel
-            end
-        end
-    end
-    Event.Hook( "Console_sse_channel", OnCommandSetChannel )
-    
-    local function ToColorValue(color)
-        return Clamp( tonumber(color), 0, 255 )
-    end
-    
-    local function OnCommandSetColor(client, color)
-        if Shared.GetCheatsEnabled() then
-
-			local rgb = StringSplit( color, ",", 3)
-			local r,g,b = ToColorValue(rgb[1]), ToColorValue(rgb[2]), ToColorValue(rgb[3])
-            Print("SkillSkinsExtra Color = " .. string.format("(%d, %d, %d)", r, g, b ))
-
-            for _, player in ipairs(GetEntitiesWithMixin("SkillSkins")) do
-                player.sseR = r
-                player.sseG = g
-                player.sseB = b
-            end
-        end
-    end
-    Event.Hook( "Console_sse_color", OnCommandSetColor )
-
-    local function OnCommandSyncWonitor(client)
-        if Shared.GetCheatsEnabled() then
-            Print("SkillSkinsExtra Sync Wonitor.")
-            local players = GetEntitiesWithMixin("SkillSkins")
-            RequestWonitorForPlayers(players)
-        end
-    end
-    Event.Hook( "Console_sse_sync", OnCommandSyncWonitor )
-
-end

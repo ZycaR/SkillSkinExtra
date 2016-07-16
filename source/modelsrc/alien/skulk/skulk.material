@@ -1,0 +1,8 @@
+shader = "shaders/SkillSkins_alien.surface_shader"
+
+albedoMap = "models/alien/skulk/skulk.dds"
+normalMap = "models/alien/skulk/skulk_normal.dds"
+emissiveMap = "models/alien/skulk/skulk_illum.dds"
+specularMap = "models/alien/skulk/skulk_spec.dds"
+skillSkinMap = "models/alien/skulk/skulk_sseMap.dds"
+surface = "organic"

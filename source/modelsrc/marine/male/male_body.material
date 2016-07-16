@@ -1,4 +1,4 @@
-shader = "shaders/SkillSkins.surface_shader"
+shader = "shaders/SkillSkins_marine.surface_shader"
 
 albedoMap = "models/marine/male/male_body.dds"
 normalMap = "models/marine/male/male_body_normal.dds"
