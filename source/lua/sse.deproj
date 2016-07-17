@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
   <file>
+    <filename>shine\extensions\SkillSkinExtra\client.lua</filename>
+  </file>
+  <file>
+    <filename>shine\extensions\SkillSkinExtra\server.lua</filename>
+  </file>
+  <file>
+    <filename>shine\extensions\SkillSkinExtra\shared.lua</filename>
+  </file>
+  <file>
     <filename>sse_FileHook.lua</filename>
   </file>
   <file>

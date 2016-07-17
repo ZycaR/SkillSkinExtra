@@ -10,6 +10,7 @@ local kConfigFileName = "SkillSkinConfig.json"
 kSkillSkinsDisabled = 0
 kSkillSkinsEnabled = 1
 
+local kDisabledConfig = { Color = {  r =  0, g =  0, b =  0}, Channel = 0.0, Name = "disabled" }
 local kDefaultConfig = {
     channel = kSkillSkinsDisabled,
     ranks = { // defined as exponential function ( 4^x )
@@ -26,14 +27,15 @@ if Server then
 
     local config = LoadConfigFile(kConfigFileName, kDefaultConfig, true)
 
-    function GetRankByPlaytime(playtime)
-        if config.ranks then
+    function GetRankByPlaytime(playtime, enabled)
+        if enabled > 0 and config.ranks then
             for _, rank in ipairs(config.ranks) do
                 if rank.Min <= playtime and rank.Max >= playtime then
                     return rank.Color, rank.Channel, rank.Name
                 end
             end
         end
+        return kDisabledConfig.Color, kDisabledConfig.Channel, kDisabledConfig.Name
     end
 
 end

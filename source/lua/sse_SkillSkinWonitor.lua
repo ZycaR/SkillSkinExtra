@@ -5,19 +5,18 @@
 // NOTE: Server only.
 
 local kWonitorRequestUrl = "http://apheriox.com/wonitor/getPlayerStats.php"
-local kWonitorSetupUrl   = "http://apheriox.com/wonitor/setPlayerStats.php"
+local kWonitorSetupUrl   = "http://apheriox.com/wonitor/setPlayerConfig.php"
 
 local function SetPlayerParams(params)
-    Shared.Message(string.format("SteamID: %s -  Client: %s - Playtime: %0.2fh",
-        ToString(params.steamId), ToString(params.clientId), params.playtime))
+    Shared.Message(string.format("SteamID: %d -  Client: %s - Playtime: %0.2fh - Enabled: %d",
+        params.steamId, ToString(params.clientId), params.playtime, params.enabled))
 
     if params.clientId then
         local client = Server.GetClientById(params.clientId)
         local player = client and client:GetControllingPlayer()
 
         if player and GetRankByPlaytime then
-            local color, channel, name = GetRankByPlaytime(params.playtime)
-
+            local color, channel, name = GetRankByPlaytime(params.playtime, params.enabled)
             player.sseR = color.r
             player.sseG = color.g
             player.sseB = color.b
@@ -37,11 +36,11 @@ local function WonitorResponse(clientIds)
         if data then
             for sid, stats in pairs(data) do
                 local steamId = tonumber(sid)
-                local seconds = tonumber(stats.playtime) or 0.0
                 local params = {
                     steamId = steamId,
                     clientId = clientIds[steamId],
-                    playtime = seconds / 3600,
+                    playtime = (tonumber(stats.playtime) or 0.0) / 3600,
+                    enabled = tonumber(stats.skinsEnabled) or 0
                 }
                 wonitorData[steamId] = params
                 SetPlayerParams(params)
@@ -52,11 +51,10 @@ end
 
 local function RequestWonitor(steamIds, clientIds, url)
     local params = {
-        steamId = table.concat(steamIds, ","),
-        //serverIp = IPAddressToString( Server.GetIpAddress() ),
-        //serverPort = Server.GetPort(),
+        steamId = table.concat(steamIds, ",")
+        //serverIp = IPAddressToString( Server.GetIpAddress() )
+        //serverPort = Server.GetPort()
     }
-    //Shared.Message("Request wonitor data for: " .. params.steamId)
     Shared.SendHTTPRequest(kWonitorRequestUrl, "GET", params, WonitorResponse(clientIds) )
 end
 
@@ -68,7 +66,6 @@ function SetupWonitorForClient(client, value)
         steamId = steamId,
         skinsEnabled = value
     }
-    Shared.Message("Setup wonitor: " .. params.skinsEnabled)
     Shared.SendHTTPRequest(kWonitorSetupUrl, "GET", params, WonitorResponse(clientId) )
 end
 
@@ -78,7 +75,9 @@ function RequestWonitorForClient(client)
     local data = wonitorData[steamId]
     
     if data and data.steamId == steamId then
-        SetPlayerParams(data)
+        // update clientId for reconnected players
+        wonitorData[steamId].clientId = clientId
+        SetPlayerParams(wonitorData[steamId])
     else // missing wonitor data or invalid ones
         RequestWonitor( { steamId }, { [steamId] = clientId } )
     end

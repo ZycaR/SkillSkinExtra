@@ -35,8 +35,17 @@ SkillSkinsMixin.expectedCallbacks = {}
 SkillSkinsMixin.optionalCallbacks = {}
 
 function SkillSkinsMixin:__initmixin()
-    self.sseR, self.sseG, self.sseB = 0, 0, 0
-    self.sseChannel = kSkillSkinsDisabled
+    local wonitor = Server and GetWonitorDataBySteamId and GetWonitorDataBySteamId(self:GetSteamId())
+    if wonitor and GetRankByPlaytime then
+        Shared.Message(string.format("Playtime: %0.2fh - Enabled: %d", wonitor.playtime, wonitor.enabled))
+
+        local color, channel, name = GetRankByPlaytime(wonitor.playtime, wonitor.enabled)
+        self.sseR, self.sseG, self.sseB = color.r, color.g, color.b
+        self.sseChannel = channel
+    else
+        self.sseR, self.sseG, self.sseB = 0, 0, 0
+        self.sseChannel = kSkillSkinsDisabled
+    end
 end
 
 if Client then
