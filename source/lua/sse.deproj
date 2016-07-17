@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
   <file>
-    <filename>shine\extensions\SkillSkinExtra\client.lua</filename>
+    <filename>shine\extensions\skillskinextra\client.lua</filename>
   </file>
   <file>
-    <filename>shine\extensions\SkillSkinExtra\server.lua</filename>
+    <filename>shine\extensions\skillskinextra\server.lua</filename>
   </file>
   <file>
-    <filename>shine\extensions\SkillSkinExtra\shared.lua</filename>
+    <filename>shine\extensions\skillskinextra\shared.lua</filename>
   </file>
   <file>
     <filename>sse_FileHook.lua</filename>
