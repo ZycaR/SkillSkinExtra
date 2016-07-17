@@ -1,14 +1,15 @@
-//
-//	SkillSkinExtra NS2 Mod
-//	ZycaR (c) 2016
-//
-// NOTE: Server only.
+--[[
+ 	Shine SkillSkinExtra plugin
+	ZycaR (c) 2016
+
+NOTE: Server only.
+]]
 
 local function ToColorValue(color)
     return Clamp( tonumber(color), 0, 255 )
 end
 
-// Send playtime request to wonitor
+-- Send playtime request to wonitor
 local function OnClientConnect(client)
     if client and not client:GetIsVirtual() then
         RequestWonitorForClient(client)
@@ -16,7 +17,7 @@ local function OnClientConnect(client)
 end
 Event.Hook("ClientConnect", OnClientConnect)
 
-// Toggle show / hide of skill skins
+-- Toggle show / hide of skill skins
 local function OnCommandToggleSkillSkins(client)
     if client and not client:GetIsVirtual() then
         local player = client:GetControllingPlayer()
@@ -29,7 +30,7 @@ local function OnCommandToggleSkillSkins(client)
 end
 Event.Hook( "Console_sse_toggle", OnCommandToggleSkillSkins )
 
-// Sync playtime for all players
+-- Sync playtime for all players
 local function OnCommandSyncWonitor(client)
     if Shared.GetCheatsEnabled() then
         Print("SkillSkinsExtra Sync Wonitor.")
@@ -40,7 +41,7 @@ end
 Event.Hook( "Console_sse_sync", OnCommandSyncWonitor )
 
 
-// Set map mask channel (sse_channel 1)
+-- Set map mask channel (sse_channel 1)
 local function OnCommandSetChannel(client, channel)
     if Shared.GetCheatsEnabled() then
 
@@ -54,7 +55,7 @@ local function OnCommandSetChannel(client, channel)
 end
 Event.Hook( "Console_sse_channel", OnCommandSetChannel )
     
-// Set skill skin color values (sse_color 255,0,255)
+-- Set skill skin color values (sse_color 255,0,255)
 local function OnCommandSetColor(client, color)
     if Shared.GetCheatsEnabled() then
 

@@ -1,8 +1,9 @@
-//
-//	SkillSkinExtra NS2 Mod
-//	ZycaR (c) 2016
-//
-// NOTE: Server only.
+--[[
+ 	Shine SkillSkinExtra plugin
+	ZycaR (c) 2016
+
+NOTE: Server only.
+]]
 
 local kWonitorRequestUrl = "http://apheriox.com/wonitor/getPlayerStats.php"
 local kWonitorSetupUrl   = "http://apheriox.com/wonitor/setPlayerConfig.php"
@@ -52,8 +53,8 @@ end
 local function RequestWonitor(steamIds, clientIds, url)
     local params = {
         steamId = table.concat(steamIds, ",")
-        //serverIp = IPAddressToString( Server.GetIpAddress() )
-        //serverPort = Server.GetPort()
+        --serverIp = IPAddressToString( Server.GetIpAddress() )
+        --serverPort = Server.GetPort()
     }
     Shared.SendHTTPRequest(kWonitorRequestUrl, "GET", params, WonitorResponse(clientIds) )
 end
@@ -75,10 +76,10 @@ function RequestWonitorForClient(client)
     local data = wonitorData[steamId]
     
     if data and data.steamId == steamId then
-        // update clientId for reconnected players
+        -- update clientId for reconnected players
         wonitorData[steamId].clientId = clientId
         SetPlayerParams(wonitorData[steamId])
-    else // missing wonitor data or invalid ones
+    else -- missing wonitor data or invalid ones
         RequestWonitor( { steamId }, { [steamId] = clientId } )
     end
 end

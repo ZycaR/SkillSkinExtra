@@ -1,7 +1,7 @@
-//
-//	SkillSkinExtra NS2 Mod
-//	ZycaR (c) 2016
-//
+--[[
+ 	Shine SkillSkinExtra plugin
+	ZycaR (c) 2016
+]]
 
 Script.Load("lua/sse_SkillSkinsMixin.lua")
 
@@ -13,7 +13,7 @@ end
 
 if Server then
 
-    // Copy SkillSkinExtra data from player to spectator and back for respawn purpose
+    -- Copy SkillSkinExtra data from player to spectator and back for respawn purpose
     local ns2_CopyPlayerDataFrom = Player.CopyPlayerDataFrom
     function Player:CopyPlayerDataFrom(player)
         ns2_CopyPlayerDataFrom(self, player)
@@ -26,5 +26,5 @@ if Server then
 
 end
 
-// Modder's version of AddMixinNetworkVars()
+-- Modder's version of AddMixinNetworkVars()
 Shared.LinkClassToMap("Player", Player.kMapName, SkillSkinsMixin.networkVars)

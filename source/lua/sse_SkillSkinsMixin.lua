@@ -1,7 +1,7 @@
-//
-//	SkillSkinExtra NS2 Mod
-//	ZycaR (c) 2016
-//
+--[[
+ 	Shine SkillSkinExtra plugin
+	ZycaR (c) 2016
+]]
 
 if Server then
     Script.Load("lua/sse_SkillSkinWonitor.lua")
@@ -50,7 +50,7 @@ end
 
 if Client then
 
-    // precache textures and shader
+    -- precache textures and shader
     for _, mask in ipairs(SkillSkinsMixin.kMaskList) do
         PrecacheAsset(mask)
     end
@@ -66,10 +66,10 @@ if Client then
             model:SetMaterialParameter( "skillColorB", ColorValue(self.sseB) )
             model:SetMaterialParameter( "skillColorChannel", self.sseChannel )
             
-            //local dump = string.format("(%0.3f, %0.3f, %0.3f)", self.sseR, self.sseG, self.sseB )
-            //Print("\t Color = " .. dump )
+            --local dump = string.format("(%0.3f, %0.3f, %0.3f)", self.sseR, self.sseG, self.sseB )
+            --Print("\t Color = " .. dump )
         end
     end
     
-end // Client
+end -- Client
 
