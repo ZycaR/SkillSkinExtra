@@ -7,8 +7,8 @@ local Plugin = Plugin
 local Shine = Shine
 
 function Plugin:Initialise()
-    self:UpdateMenuEntry(true)
     self.Enabled = true
+    self:UpdateMenuEntry(true)
     return true
 end
 
@@ -20,7 +20,7 @@ function Plugin:UpdateMenuEntry( visible )
 
     Shine.VoteMenu:EditPage( "Main",
         function( Menu )
-            self.MenuEntry = Menu:AddSideButton( "Skill Skin",
+            self.MenuEntry = Menu:AddSideButton( "Skin Toggle",
                 function() Menu.GenericClick( "sse_toggle" ) end
             )
             self.MenuEntry:SetIsVisible( visible )
