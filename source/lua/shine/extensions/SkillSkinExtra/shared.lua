@@ -4,4 +4,4 @@
 ]]
 
 local Plugin = {}
-Shine:RegisterExtension( "SkillSkinExtra", Plugin )
+Shine:RegisterExtension( "skillskinextra", Plugin )
