@@ -23,7 +23,7 @@ local function OnCommandToggleSkillSkins(client)
         local player = client:GetControllingPlayer()
         
         local toggle = ConditionalValue(player.sseChannel == kSkillSkinsDisabled, kSkillSkinsEnabled, kSkillSkinsDisabled)
-        Print("SkillSkinsExtra Toggle: " .. ToString(toggle))
+        Print("SkillSkinsExtra: " .. ToString(toggle))
         
         SetupWonitorForClient(client, toggle)
     end

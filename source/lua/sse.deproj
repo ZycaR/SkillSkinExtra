@@ -25,9 +25,12 @@
     <filename>sse_SkillSkinConfig.lua</filename>
   </file>
   <file>
-    <filename>sse_SkillSkinWonitor.lua</filename>
+    <filename>sse_SkillSkinMessage.lua</filename>
   </file>
   <file>
-    <filename>sse_SkillSkinsMixin.lua</filename>
+    <filename>sse_SkillSkinMixin.lua</filename>
+  </file>
+  <file>
+    <filename>sse_SkillSkinWonitor.lua</filename>
   </file>
 </project>

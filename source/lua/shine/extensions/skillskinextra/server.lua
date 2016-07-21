@@ -7,8 +7,9 @@ local Shine = Shine
 local Plugin = Plugin
 
 Plugin.Version = "1.0"
+Plugin.PrintName = "SkillSkinExtra"
 Plugin.HasConfig = false --Does this plugin have a config file?
-Plugin.ConfigName = "skillsskinextra.json" --What's the name of the file?
+Plugin.ConfigName = "skillskinextra.json" --What's the name of the file?
 Plugin.DefaultState = true --Should the plugin be enabled when it is first added to the config?
 Plugin.NS2Only = false --Set to true to disable the plugin in NS2: Combat if you want to use the same code for both games in a mod.
 Plugin.DefaultConfig = {}

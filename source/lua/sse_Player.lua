@@ -3,7 +3,7 @@
 	ZycaR (c) 2016
 ]]
 
-Script.Load("lua/sse_SkillSkinsMixin.lua")
+Script.Load("lua/sse_SkillSkinMixin.lua")
 
 local ns2_OnInitialized = Player.OnInitialized
 function Player:OnInitialized()

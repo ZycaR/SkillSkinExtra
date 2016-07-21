@@ -5,25 +5,27 @@
 NOTE: Server only.
 ]]
 
+Script.Load("lua/sse_SkillSkinMessage.lua")
 local kWonitorRequestUrl = "http://apheriox.com/wonitor/getPlayerStats.php"
 local kWonitorSetupUrl   = "http://apheriox.com/wonitor/setPlayerConfig.php"
 
 local function SetPlayerParams(params)
-    Shared.Message(string.format("SteamID: %d -  Client: %s - Playtime: %0.2fh - Enabled: %d",
-        params.steamId, ToString(params.clientId), params.playtime, params.enabled))
+    --Shared.Message(string.format("SteamID: %d -  Client: %s - Playtime: %0.2fh - Enabled: %d",
+    --    params.steamId, ToString(params.clientId), params.playtime, params.enabled))
 
-    if params.clientId then
+    if params and params.clientId then
         local client = Server.GetClientById(params.clientId)
         local player = client and client:GetControllingPlayer()
 
-        if player and GetRankByPlaytime then
-            local color, channel, name = GetRankByPlaytime(params.playtime, params.enabled)
-            player.sseR = color.r
-            player.sseG = color.g
-            player.sseB = color.b
-            player.sseChannel = channel
+        if player then
+            player.sseR = params.color.r
+            player.sseG = params.color.g
+            player.sseB = params.color.b
+            player.sseChannel = params.channel
+            return true
          end
     end
+    return false
 end
 
 local wonitorData = {}
@@ -37,14 +39,32 @@ local function WonitorResponse(clientIds)
         if data then
             for sid, stats in pairs(data) do
                 local steamId = tonumber(sid)
+                local playtime = (tonumber(stats.playtime) or 0.0) / 3600
+                local enabled = tonumber(stats.skinsEnabled) or 0
+                local rank = GetRankByPlaytime(playtime, enabled)
+
                 local params = {
                     steamId = steamId,
                     clientId = clientIds[steamId],
-                    playtime = (tonumber(stats.playtime) or 0.0) / 3600,
-                    enabled = tonumber(stats.skinsEnabled) or 0
+                    playtime = playtime,
+                    enabled = enabled,
+                    color = rank.Color,
+                    channel = rank.Channel,
+                    name = rank.Name,
+                    percent = (playtime - rank.Min) / (rank.Max - rank.Min) * 100.0
                 }
                 wonitorData[steamId] = params
-                SetPlayerParams(params)
+                
+                if SetPlayerParams(params) then
+                    Server.SendNetworkMessage("SetPlayerSkin", params, true)
+                    --Server.SendNetworkMessage("SetPlayerSkin", {
+                    --    steamId = params.steamId,
+                    --    name = params.name,
+                    --    playtime = params.playtime,
+                    --    percent = params.percent,
+                    --    enabled = params.enabled
+                    --}, true)
+                end
             end
         end
     end
