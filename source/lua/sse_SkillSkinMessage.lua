@@ -1,5 +1,5 @@
 --[[
- 	Shine SkillSkinExtra plugin
+ 	SkillSkinExtra
 	ZycaR (c) 2016
 	
 NOTE: Shared message from server to clients.
