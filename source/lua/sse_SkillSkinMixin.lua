@@ -15,6 +15,8 @@ SkillSkinsMixin.kShaderNameMarine = "shaders/SkillSkins_marine.surface_shader"
 SkillSkinsMixin.kShaderNameAlien = "shaders/SkillSkins_alien.surface_shader"
 SkillSkinsMixin.kMaskList = {
     "models/marine/male/male_body_sseMap.dds",
+    "models/marine/hands/hands_sseMap.dds",
+
     "models/alien/skulk/skulk_sseMap.dds"
 }
 

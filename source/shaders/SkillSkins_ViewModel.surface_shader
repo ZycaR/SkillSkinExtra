@@ -1,0 +1,70 @@
+<shader>
+	
+	<inputs>
+		<input name="albedoMap" type="texture" address="wrap" />
+		<input name="normalMap" type="texture" address="wrap" />
+		<input name="specularMap" type="texture" address="wrap" />
+		<input name="highlight" type="float">0.0</input>
+		
+		<input name="skillSkinMap" type="texture" address="wrap" />
+		<input name="skillColorR" type="float">0</input>
+		<input name="skillColorG" type="float">0</input>
+		<input name="skillColorB" type="float">0</input>
+		<input name="skillColorChannel" type="float">0</input>
+	</inputs>
+	
+	<code>
+	<![CDATA[
+		float3 DecodeNormal(const float4 texNormal)
+		{
+			float4 n = texNormal * 2 - 1;
+			//return float3(n.a, n.g, sqrt(1 - dot(n.ag, n.ag)) );
+			return n.xyz;
+		}
+
+		float DecodeSkinMask(const float4 skinMap, float channel)
+		{
+			float mask;
+
+			if (channel == 0.0)
+				mask = 0.0;
+			else if (channel == 1.0)
+				mask = skinMap.r;
+			else if (channel == 2.0)
+				mask = skinMap.g;
+			else if (channel == 3.0)
+				mask = skinMap.b;
+
+			return mask;
+		}
+
+		void MaterialShader(in Material_Input input, inout Material material)
+		{
+		
+			float highlightId   = highlight;
+			
+			float4 specularGloss = tex2D(specularMap, input.texCoord);
+
+// -- SkinSkill Shader --
+			float3 albedoTex = tex2D( albedoMap, input.texCoord ).rgb;
+			float3 skillColor = float3( skillColorR, skillColorG, skillColorB );
+			float skillMask = DecodeSkinMask( tex2D(skillSkinMap, input.texCoord), skillColorChannel );
+
+			if( skillMask > 0 ) {
+				float3 grayAlbedoMap = dot( albedoTex, float3(0.299, 0.587, 0.114) ); //NTSC grey
+				albedoTex = (1 - skillMask) * albedoTex.rgb + skillMask * skillColor.rgb;
+			}
+// -- SkinSkill Shader --
+
+			material.albedo 	= albedoTex;
+			material.tsNormal 	= DecodeNormal( tex2D(normalMap, input.texCoord) );
+			material.specular	= specularGloss.rgb;
+			material.gloss		= specularGloss.a;
+			
+			material.id = 1*highlightId;    // for alien vision
+			
+		}
+	]]>		
+	</code>
+
+</shader>

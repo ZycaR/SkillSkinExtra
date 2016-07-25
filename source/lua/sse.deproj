@@ -13,6 +13,9 @@
     <filename>sse_FileHook.lua</filename>
   </file>
   <file>
+    <filename>sse_MenuPoses.lua</filename>
+  </file>
+  <file>
     <filename>sse_Player.lua</filename>
   </file>
   <file>
@@ -32,5 +35,8 @@
   </file>
   <file>
     <filename>sse_SkillSkinWonitor.lua</filename>
+  </file>
+  <file>
+    <filename>sse_ViewModel.lua</filename>
   </file>
 </project>

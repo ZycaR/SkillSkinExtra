@@ -18,8 +18,7 @@ Plugin.sse = {
 function Plugin:Initialise()
     self.Enabled = true
     self:UpdateMenuEntry(true)
-    
-    Shared.Message("initialize")
+
     return true
 end
 
