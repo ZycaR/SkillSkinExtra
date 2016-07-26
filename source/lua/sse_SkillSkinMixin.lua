@@ -14,9 +14,8 @@ SkillSkinsMixin.type = "SkillSkins"
 SkillSkinsMixin.kShaderNameMarine = "shaders/SkillSkins_marine.surface_shader"
 SkillSkinsMixin.kShaderNameAlien = "shaders/SkillSkins_alien.surface_shader"
 SkillSkinsMixin.kMaskList = {
-    "models/marine/male/male_body_sseMap.dds",
+    "models/marine/body_sseMap.dds",
     "models/marine/hands/hands_sseMap.dds",
-
     "models/alien/skulk/skulk_sseMap.dds"
 }
 
@@ -66,7 +65,9 @@ if Client then
             model:SetMaterialParameter( "skillColorR", ColorValue(self.sseR) )
             model:SetMaterialParameter( "skillColorG", ColorValue(self.sseG) )
             model:SetMaterialParameter( "skillColorB", ColorValue(self.sseB) )
-            model:SetMaterialParameter( "skillColorChannel", self.sseChannel )
+
+            local offset = ConditionalValue(self.GetIsMale and self:GetIsMale(), 1.0, 2.0)
+            model:SetMaterialParameter( "skillColorChannel", self.sseChannel * offset )
             
             --local dump = string.format("(%0.3f, %0.3f, %0.3f)", self.sseR, self.sseG, self.sseB )
             --Print("\t Color = " .. dump )

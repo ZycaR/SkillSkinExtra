@@ -14,6 +14,8 @@ function MenuPoses:Update(deltaTime)
         model:SetMaterialParameter( "skillColorR", ColorValue(player.sseR) )
         model:SetMaterialParameter( "skillColorG", ColorValue(player.sseG) )
         model:SetMaterialParameter( "skillColorB", ColorValue(player.sseB) )
-        model:SetMaterialParameter( "skillColorChannel", player.sseChannel )
+        
+        local offset = ConditionalValue(player.GetIsMale and player:GetIsMale(), 1.0, 2.0)
+        model:SetMaterialParameter( "skillColorChannel", player.sseChannel * offset )
     end
 end
