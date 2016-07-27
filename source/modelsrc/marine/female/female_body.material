@@ -5,4 +5,5 @@ normalMap = "models/marine/female/female_body_normal.dds"
 specularMap = "models/marine/female/female_body_spec.dds"
 emissiveMap = "models/marine/female/female_body_illum.dds"
 skillSkinMap = "models/marine/body_sseMap.dds"
+skillColorChannel = 2.0
 surface = "organic"

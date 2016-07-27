@@ -11,12 +11,15 @@ end
 SkillSkinsMixin = CreateMixin( SkillSkinsMixin )
 SkillSkinsMixin.type = "SkillSkins"
 
-SkillSkinsMixin.kShaderNameMarine = "shaders/SkillSkins_marine.surface_shader"
-SkillSkinsMixin.kShaderNameAlien = "shaders/SkillSkins_alien.surface_shader"
+SkillSkinsMixin.kShaderName = {
+    "shaders/SkillSkins_marine.surface_shader",
+    "shaders/SkillSkins_alien.surface_shader",
+    "shaders/SkillSkins_alien_alpha.surface_shader"
+}
 SkillSkinsMixin.kMaskList = {
     "models/marine/body_sseMap.dds",
     "models/marine/hands/hands_sseMap.dds",
-    "models/alien/skulk/skulk_sseMap.dds"
+    "models/alien/alien_sseMap.dds"
 }
 
 SkillSkinsMixin.networkVars =
@@ -51,12 +54,15 @@ end
 
 if Client then
 
-    -- precache textures and shader
+    -- precache shaders
+    for _, shader in ipairs(SkillSkinsMixin.kShaderName) do
+        Shared.PrecacheSurfaceShader(shader)
+    end
+    
+    -- precache textures
     for _, mask in ipairs(SkillSkinsMixin.kMaskList) do
         PrecacheAsset(mask)
     end
-    Shared.PrecacheSurfaceShader(SkillSkinsMixin.kShaderNameMarine)
-    Shared.PrecacheSurfaceShader(SkillSkinsMixin.kShaderNameAlien)
 
     function SkillSkinsMixin:OnUpdateRender()
         local model = self:GetRenderModel()
@@ -65,9 +71,7 @@ if Client then
             model:SetMaterialParameter( "skillColorR", ColorValue(self.sseR) )
             model:SetMaterialParameter( "skillColorG", ColorValue(self.sseG) )
             model:SetMaterialParameter( "skillColorB", ColorValue(self.sseB) )
-
-            local offset = ConditionalValue(self.GetIsMale and self:GetIsMale(), 1.0, 2.0)
-            model:SetMaterialParameter( "skillColorChannel", self.sseChannel * offset )
+            model:SetMaterialParameter( "skillColorEnabled", self.sseChannel )
             
             --local dump = string.format("(%0.3f, %0.3f, %0.3f)", self.sseR, self.sseG, self.sseB )
             --Print("\t Color = " .. dump )

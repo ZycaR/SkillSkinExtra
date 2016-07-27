@@ -1,0 +1,11 @@
+//this used to be lerk.surface_shader but it was causing issues with emissive properties while cloaking
+shader = "shaders/SkillSkins_alien_alpha.surface_shader"
+
+albedoMap = "models/alien/lerk/lerk_albino.dds"
+normalMap = "models/alien/lerk/lerk_normal.dds"
+opacityMap = "models/alien/lerk/lerk_opac.dds"
+specularMap = "models/alien/lerk/lerk_albino_spec.dds"
+emissiveMap = "models/alien/lerk/lerk_albino_illum.dds"
+skillSkinMap = "models/alien/alien_sseMap.dds"
+skillColorChannel = 3.0
+surface = "organic"

@@ -4,3 +4,4 @@ albedoMap = "models/marine/hands/hands.dds"
 normalMap = "models/marine/hands/hands_normal.dds"
 specularMap = "models/marine/hands/hands_spec.dds"
 skillSkinMap = "models/marine/hands/hands_sseMap.dds"
+skillColorChannel = 1.0

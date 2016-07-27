@@ -10,6 +10,7 @@
 		<input name="skillColorR" type="float">0</input>
 		<input name="skillColorG" type="float">0</input>
 		<input name="skillColorB" type="float">0</input>
+		<input name="skillColorEnabled" type="float">0</input>
 		<input name="skillColorChannel" type="float">0</input>
 	</inputs>
 	
@@ -48,7 +49,7 @@
 // -- SkinSkill Shader --
 			float3 albedoTex = tex2D( albedoMap, input.texCoord ).rgb;
 			float3 skillColor = float3( skillColorR, skillColorG, skillColorB );
-			float skillMask = DecodeSkinMask( tex2D(skillSkinMap, input.texCoord), skillColorChannel );
+			float skillMask = DecodeSkinMask( tex2D(skillSkinMap, input.texCoord), skillColorEnabled * skillColorChannel );
 
 			if( skillMask > 0 ) {
 				float3 grayAlbedoMap = dot( albedoTex, float3(0.299, 0.587, 0.114) ); //NTSC grey

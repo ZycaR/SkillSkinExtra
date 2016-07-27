@@ -12,3 +12,6 @@ elseif Client then
 elseif Predict then
     Script.Load("lua/Predict.lua")
 end
+
+--function GetHasDLC(productId, client)       return true end
+--function GetHasVariant(data, var, client)   return true end
