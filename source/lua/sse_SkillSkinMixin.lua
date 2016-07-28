@@ -19,7 +19,8 @@ SkillSkinsMixin.kShaderName = {
 SkillSkinsMixin.kMaskList = {
     "models/marine/body_sseMap.dds",
     "models/marine/hands/hands_sseMap.dds",
-    "models/alien/alien_sseMap.dds"
+    "models/alien/alien_sseMap.dds",
+    "models/alien/alien2_sseMap.dds"
 }
 
 SkillSkinsMixin.networkVars =

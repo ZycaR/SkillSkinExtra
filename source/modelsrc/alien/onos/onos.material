@@ -1,0 +1,9 @@
+shader = "shaders/SkillSkins_marine.surface_shader"
+
+albedoMap = "models/alien/onos/onos.dds"
+normalMap = "models/alien/onos/onos_normal.dds"
+emissiveMap = "models/alien/onos/onos_illum.dds"
+specularMap = "models/alien/onos/onos_spec.dds"
+skillSkinMap = "models/alien/alien_sseMap.dds"
+skillColorChannel = 2.0
+surface = "organic"
