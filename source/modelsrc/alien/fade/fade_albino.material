@@ -1,4 +1,4 @@
-shader = "shaders/SkillSkins_marine.surface_shader"
+shader = "shaders/SkillSkins_alien.surface_shader"
 
 albedoMap = "models/alien/fade/fade_albino.dds"
 normalMap = "models/alien/fade/fade_normal.dds"

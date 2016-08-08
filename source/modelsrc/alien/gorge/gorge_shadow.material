@@ -1,0 +1,9 @@
+shader = "shaders/SkillSkins_alien.surface_shader"
+
+albedoMap = "models/alien/gorge/gorge_shadow.dds"
+normalMap = "models/alien/gorge/gorge_shadow_normal.dds"
+emissiveMap = "models/alien/gorge/gorge_shadow_illum.dds"
+specularMap = "models/alien/gorge/gorge_shadow_spec.dds"
+skillSkinMap = "models/alien/alien2_sseMap.dds"
+skillColorChannel = 2.0
+surface = "organic"
