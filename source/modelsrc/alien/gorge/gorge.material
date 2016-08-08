@@ -1,0 +1,6 @@
+shader = "models/alien/alien.surface_shader"
+albedoMap = "models/alien/gorge/gorge.dds"
+normalMap = "models/alien/gorge/gorge_normal.dds"
+emissiveMap = "models/alien/gorge/gorge_illum.dds"
+specularMap = "models/alien/gorge/gorge_spec.dds"
+surface = "organic"
